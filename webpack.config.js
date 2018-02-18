@@ -9,7 +9,21 @@ output:{
     // project directory, as a file called 'build'
     filename: 'bundle.js' // What the filename will be when essentially combining
     // all the files together
+  },
+  module: {
+    rules :[
+      {
+        use:'babel-loader',
+        test: /\.js$/ // looks for files that end with .js, If so, babel will be applied
+      },
+      {
+        use:['style-loader','css-loader'],
+        //The style loader takes the CSS imports and adds them to the HTML document
+        //The css loader knows how to deal with CSS imports
+        test: /\.css$/
+      }
+     ]
   }
-}
+};
 
 module.exports = config;
