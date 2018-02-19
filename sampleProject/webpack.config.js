@@ -14,7 +14,9 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: '[name].js'
+    filename: '[name].[chunkhash].js' //chunkhash will change the name of the file every time, bundle.js or
+    //vendor.js changes
+    // This is done to help the browser know when the code inside of bundle/vendor or any future files have changed
   },
   module:{
   	rules:[{
@@ -30,8 +32,9 @@ module.exports = {
   },
   plugins:[ 
     new webpack.optimize.CommonsChunkPlugin({ // Look at the total sum of all the project files
-      name:'vendor' // If any of the dependencies in vendor and bundle.js overlap,
+      names:['vendor','manifest'] // If any of the dependencies in vendor and bundle.js overlap,
       // add them only to the vendor file
+      // manifest helps the browser realize is vendor has changed
     }),
     new HtmlWebpackPlugin({
       template:'src/index.html' //generate our existing html document
